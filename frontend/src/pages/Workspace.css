@@ -1,0 +1,22 @@
+.header-container {
+    position: fixed;
+    top: 0;
+    left: calc(50% + 125px); /* Adjust based on sidebar width */
+    transform: translateX(-50%);
+    width: calc(100% - 375px); /* Adjust width to compensate for sidebar width and 250px offset */
+    max-width: 500px; /* Adjust max-width as needed */
+    background-color: #59595c; /* Add background color if needed */
+    z-index: 1000; /* Ensure the header stays on top of other content */
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Add shadow for better visibility */
+  }
+  
+  
+  
+  
+  .tab-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px; /* Adjust padding as needed */
+    /* Add other styling for buttons */
+  }
+  

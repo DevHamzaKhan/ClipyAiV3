@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@hello-pangea/dnd": "^16.6.0",
     "@mantine/carousel": "^7.10.1",
     "@mantine/charts": "^7.10.1",
@@ -26,6 +28,7 @@
     "@mantine/tiptap": "^7.10.1",
     "@mantinex/dev-icons": "^1.0.2",
     "@mantinex/mantine-logo": "^1.0.1",
+    "@mui/material": "^5.15.19",
     "@tabler/icons-react": "^3.5.0",
     "@tiptap/extension-link": "^2.4.0",
     "@tiptap/react": "^2.4.0",

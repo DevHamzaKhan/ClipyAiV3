@@ -155,7 +155,7 @@ export { NavbarMinimal } from './NavbarMinimal/NavbarMinimal';
 export { NavbarMinimalColored } from './NavbarMinimalColored/NavbarMinimalColored';
 export { NavbarSimple } from './NavbarSimple/NavbarSimple';
 export { NavbarSimpleColored } from './NavbarSimpleColored/NavbarSimpleColored';
-export { NavbarLinksGroup } from './NavbarLinksGroup/NavbarLinksGroup';
+export { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup';
 export { NavbarSegmented } from './NavbarSegmented/NavbarSegmented';
 export { NavbarSearch } from './NavbarSearch/NavbarSearch';
 export { NavbarNested } from './NavbarNested/NavbarNested';

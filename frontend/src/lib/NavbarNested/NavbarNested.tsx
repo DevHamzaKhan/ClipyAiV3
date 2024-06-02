@@ -40,6 +40,16 @@ export function NavbarNested() {
     };
 
     fetchWorkspaces();
+
+    // Check for authentication status every 10 seconds
+    const intervalId = setInterval(() => {
+      if (!auth.currentUser) {
+        fetchWorkspaces();
+      }
+    }, 10000);
+
+    // Clean up the interval to avoid memory leaks
+    return () => clearInterval(intervalId);
   }, []);
 
   const mockdata = [
@@ -48,7 +58,7 @@ export function NavbarNested() {
       label: 'Workspaces',
       icon: IconNotes,
       initiallyOpened: true,
-      link: '/dashboard',
+      link: '/workspace',
       links: workspaces.map(workspace => ({
         label: workspace.title,
         link: `/workspace/${workspace.id}`,
