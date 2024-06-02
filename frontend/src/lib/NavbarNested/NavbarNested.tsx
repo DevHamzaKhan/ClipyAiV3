@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons-react';
 import { UserButton } from '../UserButton/UserButton';
 import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
-import { Logo } from './Logo';
+import { Logo } from './Logo'; // Ensure this import path is correct
 import classes from './NavbarNested.module.css';
 import { collection, getDocs } from "firebase/firestore";
 import { db, auth } from '../../firebase';
@@ -51,6 +51,14 @@ export function NavbarNested() {
     // Clean up the interval to avoid memory leaks
     return () => clearInterval(intervalId);
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await auth.signOut(); // Sign out the user
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
 
   const mockdata = [
     { label: 'Overview', icon: IconGauge, link: '/home' },
@@ -96,6 +104,7 @@ export function NavbarNested() {
 
       <div className={classes.footer}>
         <UserButton />
+        <button onClick={handleLogout}>Logout</button> {/* Logout button */}
       </div>
     </nav>
   );

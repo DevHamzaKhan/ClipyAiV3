@@ -1,0 +1,19 @@
+/* Logo.css */
+.logo {
+    display: flex; /* Use Flexbox */
+    align-items: center; /* Vertically center logo and text */
+  }
+  
+  .logo-image {
+    width: 40px; /* Adjust the size as needed */
+    height: auto;
+    margin-right: 10px; /* Adjust spacing between image and text */
+  }
+  
+  .logo-text {
+    font-size: 1.5rem; /* Adjust font size as needed */
+    font-weight: bold;
+    color: white; /* Set text color to white */
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
