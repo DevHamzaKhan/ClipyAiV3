@@ -1,0 +1,61 @@
+/* Styles for the "New Workspace" button */
+.button-container {
+    margin-bottom: 1rem;
+  }
+  
+  .button-container button {
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .button-container button:hover {
+    background-color: #333;
+  }
+  
+  /* Styles for the modal */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  /* Styles for the form inputs */
+  .input-container {
+    margin-bottom: 1rem;
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  
+  /* Styles for the buttons in the modal */
+  .button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  /* Styles for the table */
+  .table {
+    /* Add your table styles here */
+  }
+  

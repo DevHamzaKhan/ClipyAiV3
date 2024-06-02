@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Group, Code, ScrollArea, rem } from '@mantine/core';
 import {
   IconNotes,
-  IconCalendarStats,
   IconGauge,
-  IconPresentationAnalytics,
-  IconFileAnalytics,
   IconAdjustments,
+  IconFileAnalytics,
   IconLock,
 } from '@tabler/icons-react';
 import { UserButton } from '../UserButton/UserButton';
@@ -14,7 +12,8 @@ import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
 import { Logo } from './Logo';
 import classes from './NavbarNested.module.css';
 import { collection, getDocs } from "firebase/firestore";
-import { db, auth } from '../../firebase'; // Ensure correct path
+import { db, auth } from '../../firebase';
+import { Link } from 'react-router-dom';
 
 export function NavbarNested() {
   const [workspaces, setWorkspaces] = useState([]);
@@ -44,51 +43,31 @@ export function NavbarNested() {
   }, []);
 
   const mockdata = [
-    { label: 'Dashboard', icon: IconGauge },
-    {
-      label: 'Market news',
-      icon: IconNotes,
-      initiallyOpened: true,
-      links: [
-        { label: 'Overview', link: '/' },
-        { label: 'Forecasts', link: '/' },
-        { label: 'Outlook', link: '/' },
-        { label: 'Real time', link: '/' },
-      ],
-    },
-    {
-      label: 'Releases',
-      icon: IconCalendarStats,
-      links: [
-        { label: 'Upcoming releases', link: '/' },
-        { label: 'Previous releases', link: '/' },
-        { label: 'Releases schedule', link: '/' },
-      ],
-    },
-    { label: 'Analytics', icon: IconPresentationAnalytics },
-    { label: 'Contracts', icon: IconFileAnalytics },
-    { label: 'Settings', icon: IconAdjustments },
-    {
-      label: 'Security',
-      icon: IconLock,
-      links: [
-        { label: 'Enable 2FA', link: '/' },
-        { label: 'Change password', link: '/' },
-        { label: 'Recovery codes', link: '/' },
-      ],
-    },
+    { label: 'Overview', icon: IconGauge, link: '/home' },
     {
       label: 'Workspaces',
-      icon: IconNotes, // You can choose a different icon if preferred
+      icon: IconNotes,
       initiallyOpened: true,
+      link: '/dashboard',
       links: workspaces.map(workspace => ({
         label: workspace.title,
         link: `/workspace/${workspace.id}`,
       })),
     },
+    { label: 'Upgrade to Pro', icon: IconAdjustments, link: '/pro' },
+    { label: 'Documentation', icon: IconFileAnalytics, link: '/documentation' },
+    { label: 'Help', icon: IconLock, link: '/help' },
   ];
 
-  const links = mockdata.map((item) => <LinksGroup {...item} key={item.label} />);
+  const links = mockdata.map((item) => (
+    <LinksGroup
+      {...item}
+      key={item.label}
+      // If it's a workspace link, use Link from react-router-dom
+      // Otherwise, use a regular anchor tag
+      icon={item.link.includes('/workspace') ? Link : 'a'}
+    />
+  ));
 
   return (
     <nav className={classes.navbar}>

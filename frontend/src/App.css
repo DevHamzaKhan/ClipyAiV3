@@ -40,4 +40,20 @@
   .read-the-docs {
     color: #888;
   }
+  .main-content {
+    position: relative;
+  }
+  
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px; /* Adjust width as needed */
+    background-color: #f0f0f0; /* Example background color */
+  }
+  
+  .routes-content {
+    margin-left: 250px; /* Adjust to match the sidebar width */
+  }
+  
   
