@@ -10,11 +10,13 @@ const style = {
   transform: 'translate(-50%, -50%)',
   width: 600,
   height: 400,
-  bgcolor: 'background.paper',
+  bgcolor: '#333', // Dark background color
+  color: '#fff', // White text color
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
 };
+
 
 const formatTimestamp = (timestamp) => {
   const date = new Date(timestamp * 1000); // Convert timestamp to milliseconds
@@ -37,7 +39,7 @@ const VideoModal = ({ open, handleClose, url, timestamp }) => {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Video Modal
+          Video
         </Typography>
         <iframe src={videoUrl} width="560" height="315" allowFullScreen title="Video"></iframe>
       </Box>

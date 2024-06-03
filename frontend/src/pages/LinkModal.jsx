@@ -1,50 +1,65 @@
 import React from 'react';
+import { Modal, Typography, Box, Button, TextField } from '@mui/material';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400, // Adjust width to make it thinner
+  height: 350, // Adjust height to make it shorter
+  bgcolor: '#333', // Dark background color
+  color: '#fff', // White text color
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+
 
 const LinkModal = ({ isOpen, onClose, onSubmit }) => {
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded shadow-md">
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+    >
+      <Box sx={style}>
+        <Typography variant="h6" id="modal-title" component="h2">
+          Add YouTube Link
+        </Typography>
+        {/* Replace this with your form content */}
         <form onSubmit={onSubmit}>
-          <div>
-            <label htmlFor="dataName" className="block text-sm font-medium text-gray-700">Data Name</label>
-            <input
-              type="text"
-              id="dataName"
-              name="dataName"
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mt-4">
-            <label htmlFor="dataValue" className="block text-sm font-medium text-gray-700">Data Value</label>
-            <input
-              type="text"
-              id="dataValue"
-              name="dataValue"
-              required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-          <div className="mt-6 flex justify-end">
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded mr-2"
-            >
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+          <TextField
+            required
+            id="dataName"
+            label="Data Name"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+          />
+          <TextField
+            required
+            id="dataValue"
+            label="Data Value"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+          />
+          <div style={{ marginTop: 16, textAlign: 'right' }}>
+            <Button onClick={onClose} variant="outlined" style={{ marginRight: 8 }}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
               Add
-            </button>
+            </Button>
           </div>
+          </Typography>
         </form>
-      </div>
-    </div>
+      </Box>
+    </Modal>
   );
 };
 

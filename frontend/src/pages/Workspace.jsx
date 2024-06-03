@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, addDoc, collection, getDocs } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import './Workspace.css';
 import {
@@ -17,7 +17,9 @@ import {
   List,
   ListItem,
 } from '@mantine/core';
+import { TableScrollArea } from '../lib/TableScrollArea/TableScrollArea';
 import VideoModal from './VideoModal'; // Import the CustomModal component
+import LinkModal from './LinkModal'; // Import the LinkModal component
 
 const Workspace = () => {
   const { id } = useParams(); // Get the workspace ID from the URL
@@ -100,21 +102,38 @@ const Workspace = () => {
     fetchData();
   }, [id]);
 
+  const handleLinkModalOpen = () => {
+    setIsLinkModalOpen(true);
+  };
+
+  const handleLinkModalClose = () => {
+    setIsLinkModalOpen(false);
+  };
+
   const handleDataSubmit = async (e) => {
     e.preventDefault();
     const youtubeLink = e.target.dataValue.value;
-
+  
     try {
       console.log('Submitting new YouTube link:', youtubeLink);
-
+  
       if (!auth.currentUser) {
         throw new Error('User not authenticated');
       }
-
+  
+      const userId = auth.currentUser.uid;
       const newLink = { value: youtubeLink, id: Date.now() }; // Unique ID for the new link
-
-      setData((prevData) => [...prevData, newLink]); // Add the new link to the local state
-
+  
+      // Reference to the user's workspace data collection
+      const userWorkspacesRef = collection(db, 'groups', userId, 'workspaces', id, 'data');
+  
+      // Add the new link data to Firestore
+      await addDoc(userWorkspacesRef, newLink);
+  
+      // Update the local state with the new link
+      setData((prevData) => [...prevData, newLink]);
+  
+      // Close the link modal
       setIsLinkModalOpen(false);
     } catch (error) {
       console.error('Error adding data:', error);
@@ -251,31 +270,23 @@ const Workspace = () => {
           </>
         )}
 
-        {section === 'data' && (
+
+      {section === 'data' && (
           <>
-            <Button onClick={() => setIsLinkModalOpen(true)} mt="md">
+            <Button onClick={handleLinkModalOpen} mt="md">
               Add YouTube Link
             </Button>
             <Title order={2} mt="xl">
               Existing Data
             </Title>
             <Box mt="md">
-              <List>
-                {data.map((item, index) => (
-                  <ListItem key={index} mt="sm">
-                    <strong>Link:</strong>{' '}
-                    <a
-                      href={item.value}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: 'blue' }}
-                    >
-                      {item.value}
-                    </a>
-                  </ListItem>
-                ))}
-              </List>
+              <TableScrollArea id={id} />
             </Box>
+            <LinkModal
+              isOpen={isLinkModalOpen}
+              onClose={handleLinkModalClose}
+              onSubmit={handleDataSubmit}
+            />
           </>
         )}
 
@@ -305,7 +316,7 @@ const Workspace = () => {
                       <Title order={3}>{doc.metadata.videoTitle}</Title>
                       <Text mt="sm">{doc.page_content}</Text>
                       <Button onClick={() => handleModalOpen(doc.metadata.url, doc.metadata.duration)}>
-                        Open modal
+                        Watch Video
                       </Button>
                       <VideoModal
                         open={isModalOpen}
